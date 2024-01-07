@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> Коллекция фильмов </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/index}"> Моя коллекция фильмов </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bstarget="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" th:href="@{/logout}"> Выход </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <hr/>
+    <h1> Фильм </h1>
+    <hr/>
+    <form
+            method="post"
+            th:action="@{/saveMovie}"
+            th:object="${movie}">
+        <div>
+            <h2> подробно о фильме </h2>
+            <h3> ниже можно заполнить подробную информацию </h3>
+            <div>
+                <div> Название </div>
+                <p
+                        th:if="${#fields.hasErrors('title')}"
+                        th:class="${#fields.hasErrors('title')}? error"
+                        th:errors="*{title}"> Title error
+                </p>
+                <style>
+                    .error{
+                        color: red;
+                    }
+                </style>
+                <input type="text" th:field="*{title}" class="form-control col-4 mb-4" placeholder="Введите название"/>
+            </div>
+            <div>
+                <div> Жанр (комедия, триллер, фантастика, драма, ...) </div>
+                <p
+                        th:if="${#fields.hasErrors('genre')}"
+                        th:class="${#fields.hasErrors('genre')}? error"
+                        th:errors="*{genre}"> Genre Error
+                </p>
+                <style>
+                    .error{
+                        color: red;
+                    }
+                </style>
+                <input type="text" th:field="*{genre}" class="form-control col-4 mb-4" placeholder="Введите жанр" />
+            </div>
+            <div>
+                <div> Режиссер </div>
+                <p
+                        th:if="${#fields.hasErrors('director')}"
+                        th:class="${#fields.hasErrors('director')}? error"
+                        th:errors="*{director}"> Director Error
+                </p>
+                <style>
+                    .error{
+                        color: red;
+                    }
+                </style>
+                <input type="text" th:field="*{director}" class="form-control col-4 mb-4" placeholder="Введите режиссера"/>
+            </div>
+            <div>
+                <div> Продолжительность (короткометражный, сериал, многосерийный, полнометражный, несколько частей) </div>
+                <p
+                        th:if="${#fields.hasErrors('duration')}"
+                        th:class="${#fields.hasErrors('duration')}? error"
+                        th:errors="*{duration}"> Duration Error
+                </p>
+                <style>
+                    .error{
+                        color: red;
+                    }
+                </style>
+                <input type="text" th:field="*{duration}" class="form-control col-4 mb-4" placeholder="Введите продолжительность"/>
+            </div>
+            <div>
+                <div> Дата выхода </div>
+                <input type="date" th:field="*{releaseDate}" class="form-control col-4 mb-4" placeholder="Введите дату выхода"/>
+            </div>
+            <div>
+                <div> Главные актеры ( Фамилия Имя ) </div>
+                <p
+                        th:if="${#fields.hasErrors('mainActors')}"
+                        th:class="${#fields.hasErrors('mainActors')}? error"
+                        th:errors="*{mainActors}"> MainActors Error
+                </p>
+                <style>
+                    .error{
+                        color: red;
+                    }
+                </style>
+                <input type="text" th:field="*{mainActors}" class="form-control col-4 mb-4" placeholder="Введите имя главных актеров"/>
+            </div>
+            <div>
+                <div> Номер в коллекции </div>
+                <p
+                        th:if="${#fields.hasErrors('numberCollections')}"
+                        th:class="${#fields.hasErrors('numberCollections')}? error"
+                        th:errors="*{numberCollections}"> NumberCollections Error
+                </p>
+                <style>
+                    .error{
+                        color: red;
+                    }
+                </style>
+                <input type="text" th:field="*{numberCollections}" class="form-control col-4 mb-4" placeholder="Введите номер в коллекции"/>
+            </div>
+            <div>
+        <div> Сохранить информацию о фильме </div>
+        <button type="submit" class="btn btn-primary col-2"> СОХРАНИТЬ </button>
+        <input type="hidden" th:field="*{id}"/>
+    </form>
+    <hr/>
+    <a th:href="@{/list}">Вернуться к списку фильмов</a>
+</div>
+</body>
+</html>
